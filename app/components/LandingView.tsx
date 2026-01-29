@@ -32,9 +32,9 @@ export default function LandingView() {
       </header>
 
       {/* Hero Section */}
-      <main className="flex-1 flex flex-col lg:flex-row items-center justify-center px-8 lg:px-16 py-8 lg:py-0">
+      <main className="flex-1 flex flex-col lg:flex-row items-center justify-center px-8 lg:px-24 py-8 lg:py-0 gap-8 lg:gap-16">
         {/* Left Content */}
-        <div className="lg:w-1/2 space-y-6">
+        <div className="lg:w-5/12 space-y-6">
           <p className="text-xs text-gray-400 tracking-[0.2em] uppercase">Introducing Polagram</p>
 
           <h1 className="text-5xl lg:text-7xl font-black text-gray-900 leading-[0.95] tracking-tight">
@@ -74,8 +74,8 @@ export default function LandingView() {
         </div>
 
         {/* Right Content - Camera Image */}
-        <div className="lg:w-1/2 mt-12 lg:mt-0 flex justify-center lg:justify-end">
-          <div className="relative w-80 lg:w-96">
+        <div className="lg:w-5/12 mt-12 lg:mt-0 flex justify-center">
+          <div className="relative w-72 lg:w-80">
             {/* Polaroid Camera Illustration */}
             <div className="relative">
               {/* Camera body */}
