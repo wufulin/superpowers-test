@@ -133,11 +133,13 @@ export default function PreviewView() {
         <div className="lg:w-3/5 p-6 flex flex-col items-center">
           <div className="relative mb-6">
             {previewUrl ? (
-              <img
-                src={previewUrl}
-                alt="Preview"
-                className="max-w-full max-h-96 object-contain shadow-lg"
-              />
+              <div className={`p-4 rounded-lg shadow-xl ${frameStyles[selectedFrame].className}`}>
+                <img
+                  src={previewUrl}
+                  alt="Preview"
+                  className="max-w-full max-h-80 object-contain"
+                />
+              </div>
             ) : (
               <div className="w-64 h-80 bg-gray-100 flex items-center justify-center">
                 加载中...
