@@ -6,6 +6,7 @@ import { setView } from '../store/slices/viewSlice'
 import { clearImages } from '../store/slices/imageSlice'
 import { addGalleryItem } from '../store/slices/gallerySlice'
 import { useEffect, useState } from 'react'
+import Header from './Header'
 
 export default function ResultView() {
   const dispatch = useDispatch()
@@ -44,16 +45,7 @@ export default function ResultView() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      <header className="flex justify-between items-center p-6">
-        <button
-          onClick={() => dispatch(setView('preview'))}
-          className="text-gray-600 hover:text-gray-900"
-        >
-          ← 返回
-        </button>
-        <div className="text-xl font-bold text-gray-900">POLAGRAM</div>
-        <div className="w-16"></div>
-      </header>
+      <Header backView="preview" />
 
       <main className="flex-1 flex flex-col items-center justify-center p-8">
         <div className="mb-8 animate-fade-in">

@@ -4,6 +4,7 @@ import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { setView } from '../store/slices/viewSlice'
 import { setOriginalImage } from '../store/slices/imageSlice'
+import Header from './Header'
 
 export default function UploadView() {
   const dispatch = useDispatch()
@@ -39,16 +40,7 @@ export default function UploadView() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      <header className="flex justify-between items-center p-6">
-        <button
-          onClick={() => dispatch(setView('landing'))}
-          className="text-gray-600 hover:text-gray-900"
-        >
-          ← 返回
-        </button>
-        <div className="text-xl font-bold text-gray-900">POLAGRAM</div>
-        <div className="w-16"></div>
-      </header>
+      <Header backView="landing" />
 
       <main className="flex-1 flex items-center justify-center p-8">
         <div
