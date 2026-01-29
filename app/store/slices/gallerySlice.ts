@@ -13,20 +13,22 @@ interface GallerySliceState {
 
 const GALLERY_KEY = 'polagram-gallery'
 
-const loadFromStorage = (): GalleryItem[] => {
-  if (typeof window === 'undefined') return []
-  const stored = localStorage.getItem(GALLERY_KEY)
-  return stored ? JSON.parse(stored) : []
-}
-
 const initialState: GallerySliceState = {
-  items: loadFromStorage()
+  items: []
 }
 
 const gallerySlice = createSlice({
   name: 'gallery',
   initialState,
   reducers: {
+    loadGalleryFromStorage: (state) => {
+      if (typeof window !== 'undefined') {
+        const stored = localStorage.getItem(GALLERY_KEY)
+        if (stored) {
+          state.items = JSON.parse(stored)
+        }
+      }
+    },
     addGalleryItem: (state, action: PayloadAction<Omit<GalleryItem, 'id' | 'createdAt'>>) => {
       const newItem: GalleryItem = {
         ...action.payload,
@@ -34,14 +36,18 @@ const gallerySlice = createSlice({
         createdAt: new Date().toISOString()
       }
       state.items = [newItem, ...state.items].slice(0, 20)
-      localStorage.setItem(GALLERY_KEY, JSON.stringify(state.items))
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(GALLERY_KEY, JSON.stringify(state.items))
+      }
     },
     clearGallery: (state) => {
       state.items = []
-      localStorage.removeItem(GALLERY_KEY)
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem(GALLERY_KEY)
+      }
     }
   }
 })
 
-export const { addGalleryItem, clearGallery } = gallerySlice.actions
+export const { loadGalleryFromStorage, addGalleryItem, clearGallery } = gallerySlice.actions
 export default gallerySlice.reducer
