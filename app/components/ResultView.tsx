@@ -7,10 +7,34 @@ import { clearImages } from '../store/slices/imageSlice'
 import { addGalleryItem } from '../store/slices/gallerySlice'
 import { useEffect, useState } from 'react'
 import Header from './Header'
+import { FrameStyle } from '../store/slices/frameSlice'
+
+// 相框样式定义
+const frameStyles: Record<FrameStyle, { className: string }> = {
+  'black-marble': {
+    className: 'bg-gradient-to-br from-gray-800 via-gray-700 to-gray-900'
+  },
+  'spring-flower': {
+    className: 'bg-gradient-to-br from-pink-100 via-green-50 to-pink-200'
+  },
+  'neon-party': {
+    className: 'bg-gradient-to-br from-cyan-400 via-purple-500 to-pink-500'
+  },
+  'pink-dot': {
+    className: 'bg-pink-100'
+  },
+  'pizza': {
+    className: 'bg-gradient-to-br from-yellow-100 via-orange-100 to-yellow-200'
+  },
+  'starry-purple': {
+    className: 'bg-gradient-to-br from-indigo-900 via-purple-800 to-indigo-950'
+  }
+}
 
 export default function ResultView() {
   const dispatch = useDispatch()
   const { processedImage } = useSelector((state: RootState) => state.image)
+  const { selectedFrame } = useSelector((state: RootState) => state.frame)
   const [saved, setSaved] = useState(false)
 
   useEffect(() => {
@@ -49,11 +73,13 @@ export default function ResultView() {
 
       <main className="flex-1 flex flex-col items-center justify-center p-8">
         <div className="mb-8 animate-fade-in">
-          <img
-            src={processedImage}
-            alt="Result"
-            className="max-w-full max-h-96 object-contain shadow-2xl"
-          />
+          <div className={`p-4 rounded-lg shadow-2xl ${frameStyles[selectedFrame].className}`}>
+            <img
+              src={processedImage}
+              alt="Result"
+              className="max-w-full max-h-80 object-contain"
+            />
+          </div>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md">
