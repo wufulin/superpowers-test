@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import viewReducer from './slices/viewSlice'
+import imageReducer from './slices/imageSlice'
 
 export const store = configureStore({
   reducer: {
-    view: viewReducer
+    view: viewReducer,
+    image: imageReducer
   }
 })
 
