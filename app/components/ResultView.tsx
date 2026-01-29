@@ -55,7 +55,8 @@ export default function ResultView() {
     if (!processedImage || saved) return
     dispatch(addGalleryItem({
       thumbnail: processedImage,
-      fullImage: processedImage
+      fullImage: processedImage,
+      frame: selectedFrame
     }))
     setSaved(true)
   }
