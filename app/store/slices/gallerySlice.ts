@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { FrameStyle } from './frameSlice'
 
 export interface GalleryItem {
   id: string
   thumbnail: string
   fullImage: string
+  frame: FrameStyle
   createdAt: string
 }
 
