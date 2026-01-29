@@ -10,14 +10,35 @@ import { setFrame, FrameStyle } from '../store/slices/frameSlice'
 import { processPolaroid } from '../lib/canvasProcessor'
 import Header from './Header'
 
-const frames: { id: FrameStyle; name: string; color: string }[] = [
-  { id: 'black-marble', name: '黑色大理石', color: '#2a2a2a' },
-  { id: 'spring-flower', name: '春日花簇', color: '#f8e8e8' },
-  { id: 'neon-party', name: '荧光派对', color: '#ff0080' },
-  { id: 'pink-dot', name: '粉色波点', color: '#ffe4ec' },
-  { id: 'pizza', name: '美式披萨', color: '#ffd89b' },
-  { id: 'starry-purple', name: '星空紫色', color: '#e6e6fa' },
-]
+// 相框样式定义 - 根据 Image #2 设计
+const frameStyles: Record<FrameStyle, { name: string; className: string }> = {
+  'black-marble': {
+    name: '黑色大理石',
+    className: 'bg-gradient-to-br from-gray-800 via-gray-700 to-gray-900'
+  },
+  'spring-flower': {
+    name: '春日花簇',
+    className: 'bg-gradient-to-br from-pink-100 via-green-50 to-pink-200'
+  },
+  'neon-party': {
+    name: '荧光派对',
+    className: 'bg-gradient-to-br from-cyan-400 via-purple-500 to-pink-500'
+  },
+  'pink-dot': {
+    name: '粉色波点',
+    className: 'bg-pink-100'
+  },
+  'pizza': {
+    name: '美式披萨',
+    className: 'bg-gradient-to-br from-yellow-100 via-orange-100 to-yellow-200'
+  },
+  'starry-purple': {
+    name: '星空紫色',
+    className: 'bg-gradient-to-br from-indigo-900 via-purple-800 to-indigo-950'
+  }
+}
+
+const frameList: FrameStyle[] = ['black-marble', 'spring-flower', 'neon-party', 'pink-dot', 'pizza', 'starry-purple']
 
 export default function PreviewView() {
   const dispatch = useDispatch()
@@ -71,30 +92,45 @@ export default function PreviewView() {
 
       <main className="flex-1 flex flex-col lg:flex-row">
         {/* 相框选择 */}
-        <div className="lg:w-1/3 p-6 border-b lg:border-b-0 lg:border-r border-gray-200">
-          <h2 className="text-lg font-semibold mb-4">选择您的相框</h2>
-          <div className="grid grid-cols-3 gap-3">
-            {frames.map((frame) => (
-              <button
-                key={frame.id}
-                onClick={() => dispatch(setFrame(frame.id))}
-                className={`aspect-square rounded-lg border-2 transition-all ${
-                  selectedFrame === frame.id
-                    ? 'border-gray-900 shadow-lg'
-                    : 'border-gray-200 hover:border-gray-400'
-                }`}
-                style={{ backgroundColor: frame.color }}
-              >
-                <span className="text-xs font-medium text-gray-700 bg-white/80 px-2 py-1 rounded">
-                  {frame.name}
-                </span>
-              </button>
-            ))}
+        <div className="lg:w-2/5 p-6 border-b lg:border-b-0 lg:border-r border-gray-200 bg-white">
+          <h2 className="text-xl font-bold text-gray-900 mb-1">Choose Your Frame</h2>
+          <p className="text-sm text-gray-600 mb-1">选择您的相框</p>
+          <p className="text-xs text-gray-400 mb-6">Select a Polaroid frame style</p>
+
+          <div className="grid grid-cols-3 gap-4">
+            {frameList.map((frameId) => {
+              const frame = frameStyles[frameId]
+              const isSelected = selectedFrame === frameId
+
+              return (
+                <button
+                  key={frameId}
+                  onClick={() => dispatch(setFrame(frameId))}
+                  className={`aspect-square rounded-2xl overflow-hidden transition-all ${
+                    isSelected
+                      ? 'ring-4 ring-purple-400 shadow-xl scale-105'
+                      : 'ring-2 ring-gray-200 hover:ring-gray-300'
+                  }`}
+                >
+                  <div className={`w-full h-full ${frame.className} p-3 flex flex-col`}>
+                    {/* 相框边框效果 */}
+                    <div className="flex-1 bg-white rounded-sm shadow-inner flex items-center justify-center">
+                      <div className="w-12 h-12 bg-gray-100 rounded"></div>
+                    </div>
+
+                    {/* 底部标签 */}
+                    <div className="mt-2 py-1.5 bg-gradient-to-t from-black/60 to-transparent rounded-b">
+                      <p className="text-xs font-medium text-white text-center">{frame.name}</p>
+                    </div>
+                  </div>
+                </button>
+              )
+            })}
           </div>
         </div>
 
         {/* 预览和调节 */}
-        <div className="lg:w-2/3 p-6 flex flex-col items-center">
+        <div className="lg:w-3/5 p-6 flex flex-col items-center">
           <div className="relative mb-6">
             {previewUrl ? (
               <img
@@ -144,9 +180,10 @@ export default function PreviewView() {
           {/* 生成按钮 */}
           <button
             onClick={handleGenerate}
-            className="w-full max-w-md bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold py-3 rounded-full hover:opacity-90 transition-opacity"
+            className="w-full max-w-md h-14 bg-gradient-to-r from-pink-300 via-purple-300 via-blue-300 via-green-300 to-yellow-300 text-white font-semibold rounded-2xl hover:opacity-90 transition-opacity flex flex-col items-center justify-center shadow-lg"
           >
-            生成宝丽来
+            <span className="text-base font-bold">Generate Polaroid</span>
+            <span className="text-xs opacity-90">生成宝丽来</span>
           </button>
         </div>
       </main>
