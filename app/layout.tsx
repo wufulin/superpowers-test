@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+'use client'
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Provider } from 'react-redux'
@@ -13,11 +14,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-export const metadata: Metadata = {
-  title: "POLAGRAM - 时光拍立得",
-  description: "AI驱动的宝丽来风格照片转换器",
-};
 
 export default function RootLayout({
   children,
