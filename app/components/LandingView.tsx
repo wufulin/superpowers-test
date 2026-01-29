@@ -2,6 +2,7 @@
 
 import { useDispatch } from 'react-redux'
 import { setView } from '../store/slices/viewSlice'
+import GallerySection from './gallery/GallerySection'
 
 export default function LandingView() {
   const dispatch = useDispatch()
@@ -43,6 +44,10 @@ export default function LandingView() {
           </div>
         </div>
       </main>
+
+      <section className="px-8 py-8 bg-gray-50">
+        <GallerySection />
+      </section>
     </div>
   )
 }
