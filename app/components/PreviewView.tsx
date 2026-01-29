@@ -8,6 +8,7 @@ import { setProcessedImage } from '../store/slices/imageSlice'
 import { setRetroIntensity, setFilmTexture } from '../store/slices/paramsSlice'
 import { setFrame, FrameStyle } from '../store/slices/frameSlice'
 import { processPolaroid } from '../lib/canvasProcessor'
+import Header from './Header'
 
 const frames: { id: FrameStyle; name: string; color: string }[] = [
   { id: 'black-marble', name: '黑色大理石', color: '#2a2a2a' },
@@ -66,16 +67,7 @@ export default function PreviewView() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      <header className="flex justify-between items-center p-6">
-        <button
-          onClick={() => dispatch(setView('upload'))}
-          className="text-gray-600 hover:text-gray-900"
-        >
-          ← 返回
-        </button>
-        <div className="text-xl font-bold text-gray-900">POLAGRAM</div>
-        <div className="w-16"></div>
-      </header>
+      <Header backView="upload" />
 
       <main className="flex-1 flex flex-col lg:flex-row">
         {/* 相框选择 */}
